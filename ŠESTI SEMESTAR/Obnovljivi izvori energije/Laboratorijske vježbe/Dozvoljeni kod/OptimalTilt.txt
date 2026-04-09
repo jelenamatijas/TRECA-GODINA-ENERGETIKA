@@ -1,0 +1,20 @@
+n=79;
+SunAltitude=44.52;
+SolarAzimuthAngle=0;
+CollectorAzimuthAngle=0;
+TiltAngle=0:0.01:90;
+
+[DirectRadiation, DiffuseRadiation, ExtraterrestrialRadiation] =...
+    SolarRadiation(n, SunAltitude, TiltAngle, SolarAzimuthAngle, CollectorAzimuthAngle);
+
+plot(TiltAngle, DirectRadiation, 'LineWidth', 2, 'Color', 'Red')
+xlim([0, 90])
+ylim([0, 1100])
+xlabel('TiltAngle[degrees]')
+grid on
+hold on
+
+plot(TiltAngle, DiffuseRadiation, 'LineWidth', 2, 'Color', 'Green')
+plot(TiltAngle, DirectRadiation+DiffuseRadiation, 'LineWidth', 2, ...
+    'Color', 'Blue')
+legend('Direct', 'Diffuse', 'Direct+Diffuse')

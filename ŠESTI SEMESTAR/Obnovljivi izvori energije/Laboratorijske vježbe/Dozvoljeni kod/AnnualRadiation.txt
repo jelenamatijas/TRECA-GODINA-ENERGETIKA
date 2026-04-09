@@ -1,0 +1,30 @@
+Longitude=17.1833;
+Latitude=44.7667;
+LocalTimeMeridian=15;
+bDaylihtSavings=0;
+TiltAngle=44.7667;
+CollectorAzimuthAngle=0;
+
+results=zeros(365*4, 4);
+
+k=1;
+for n=1:1:365
+    for h=1:1:24
+        [SunAltitude, SolarAzimuthAngle] = SunPosition(n, h,...
+            Longitude, Latitude, LocalTimeMeridian, bDaylightSavings);
+        [DirectRadiation, DiffuseRadiation, ExtraterrestrialRadiation] = ...
+            SolarRadiation(n, SunAltitude, TiltAngle,...
+            SolarAzimuthAngle, CollectorAzimuthAngle);
+        if SunAltitude>0
+            results(k, 1)=SunAltitude;
+            results(k, 2)=SolarAzimuthAngle;
+            results(k, 3)=DirectRadiation;
+            results(k, 4)=DiffuseRadiation;
+        end
+        k=k+1;
+    end
+end
+
+AnnualDirectRadiation=sum(results(:, 3));
+AnnualDiffuseRadiation=sum(results(:, 4));
+AnnualRadiation=AnnualDirectRadiation+AnnualDiffuseRadiation;

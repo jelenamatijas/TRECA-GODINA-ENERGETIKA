@@ -1,0 +1,24 @@
+clc
+
+ClockTime=0:0.01:23.59;
+Longitude=17.1910;
+Latitude=44.7722;
+LocalTimeMeridian=15;
+bDaylightSavings=0;
+
+[SunAltitude, SolarAzimuthAngle]=SunPosition(n, ClockTime, ...
+    Longitude, Latitude, LocalTimeMeridian, bDaylightSavings);
+
+subplot(211)
+plot(ClockTime, SunAltitude, 'LineWidth', 2)
+xlabel('Time[h]')
+ylabel('Elevation Angle[degrees]')
+xlim([0, 23.59])
+grid on
+
+subplot(212)
+plot(ClockTime, SolarAzimuthAngle, 'LineWidth', 2)
+xlabel('Time[h]')
+ylabel('Azimuth Angle[degrees]')
+xlim([0, 23.59])
+grid on
